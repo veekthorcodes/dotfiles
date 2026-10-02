@@ -62,7 +62,7 @@ if brew bundle check --file="$DOTFILES/Brewfile" >/dev/null 2>&1; then
 	ok "all packages and apps installed"
 else
 	brew bundle install --no-upgrade --file="$DOTFILES/Brewfile" ||
-		warn "some entries failed (see above). An app installed by hand can be handed to Homebrew with: brew install --cask --adopt <name>"
+		warn "some entries failed (see above). An app installed by hand can be handed to Homebrew with: brew install --cask --adopt <name> (quit the app first). 'Operation not permitted' means your terminal needs System Settings -> Privacy & Security -> App Management; allow it, then Cmd+Q and reopen the terminal"
 fi
 if [ "$profile" = work ]; then
 	for cask in spotify telegram; do

@@ -46,3 +46,8 @@ Because these are symlinks, editing `~/.zshrc` edits the repo; commit and push t
 - This repo is public. Never commit secrets: `.env` files, tokens, private keys. A pre-commit hook in `.githooks/` blocks the common ones.
 - Never install `node`, `maven`, `gradle` or `openjdk` with Homebrew. fnm and SDKMAN own those.
 - Machine-specific settings go in `~/.gitconfig.local` (not committed).
+
+## Gotchas
+
+- **Allow your terminal under App Management first.** System Settings → Privacy & Security → App Management → turn on Ghostty (add it with **+** if it's missing), then quit it with Cmd+Q and reopen it. Without this, macOS blocks Homebrew from changing other apps, even with `sudo`: `brew upgrade` on apps fails and `--adopt` stops with `chgrp: ... Operation not permitted`.
+- **An app installed by hand** (for example, Brave downloaded from its website) makes `brew bundle` fail for that cask. Quit the app, then run `brew install --cask --adopt <name>` so Homebrew takes it over in place. Your browser data lives in `~/Library/Application Support/`, not in the app, so it is untouched.
