@@ -31,7 +31,6 @@ cask "ghostty"
 cask "brave-browser"
 cask "google-chrome"
 cask "orbstack"
-cask "raycast"
 cask "claude-code"
 cask "font-jetbrains-mono-nerd-font"
 

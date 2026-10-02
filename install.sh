@@ -204,8 +204,6 @@ setting com.apple.WindowManager GloballyEnabled bool true 1 # Stage Manager
 # ---------------------------------------------------------------------------
 fdesetup isactive >/dev/null 2>&1 || todo "Turn on FileVault: System Settings -> Privacy & Security (save the recovery key)"
 command -v docker >/dev/null || todo "Open OrbStack once to finish setup (installs the docker CLI)"
-[ -d "$HOME/Library/Application Support/com.raycast.macos" ] ||
-	todo "Open Raycast; to use Cmd+Space, first turn off Spotlight's shortcut in System Settings -> Keyboard -> Keyboard Shortcuts"
 az account show >/dev/null 2>&1 || todo "When you need Azure: az login"
 
 step "Done"
