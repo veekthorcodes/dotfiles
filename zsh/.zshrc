@@ -1,0 +1,24 @@
+# Completions
+FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+autoload -Uz compinit && compinit
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'   # case-insensitive
+zstyle ':completion:*' menu select                     # arrow-key menu
+
+# Plugins
+source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source <(fzf --zsh)          # Ctrl+R history search, Ctrl+T file search
+eval "$(zoxide init zsh)"    # `z proj` jumps to folders
+eval "$(starship init zsh)"  # prompt with git branch, node/java versions
+eval "$(fnm env --use-on-cd --shell zsh)"  # Node versions, auto-switch on .nvmrc
+
+# Aliases
+alias ls="eza --icons"
+alias cat="bat"
+alias vim="nvim"
+
+# Must be last
+source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"

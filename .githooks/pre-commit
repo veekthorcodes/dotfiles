@@ -1,0 +1,23 @@
+#!/bin/bash
+# Block commits that look like they contain secrets. This repo is public.
+bad=0
+
+for f in $(git diff --cached --name-only --diff-filter=ACM); do
+	case "$f" in
+	*id_rsa | *id_ed25519 | *id_ecdsa | *.pem | *.key | *.p12 | .env | *.env | .env.* | *.local)
+		echo "blocked: $f looks like a secret file"
+		bad=1
+		;;
+	esac
+done
+
+# Skip .githooks so this file's own patterns don't trip the check
+if git diff --cached -U0 -- . ':!.githooks' | grep -qE 'BEGIN [A-Z ]*PRIVATE KEY|gh[pousr]_[A-Za-z0-9]{20,}|AKIA[0-9A-Z]{16}|xox[abprs]-|sk-ant-|sk-[A-Za-z0-9]{20,}'; then
+	echo "blocked: staged changes contain something that looks like a key or token"
+	bad=1
+fi
+
+if [ "$bad" -ne 0 ]; then
+	echo "Commit aborted: this dotfiles repo is public. Use --no-verify only if you're sure."
+	exit 1
+fi

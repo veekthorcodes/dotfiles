@@ -1,0 +1,8 @@
+[user]
+	name = Victor Amadi
+	email = veekthorcodes@gmail.com
+[core]
+	excludesfile = ~/.gitignore_global
+# Machine-specific overrides (e.g. a work email). Not in the repo.
+[include]
+	path = ~/.gitconfig.local

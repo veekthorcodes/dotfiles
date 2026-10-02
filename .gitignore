@@ -1,0 +1,9 @@
+# This repo is public: never commit secrets.
+.DS_Store
+.env
+.env.*
+*.pem
+*.key
+*.p12
+id_*
+*.local
