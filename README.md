@@ -25,7 +25,7 @@ DOTFILES_PROFILE=work bash -c "$(curl -fsSL https://raw.githubusercontent.com/ve
 
 | File | Linked to |
 |---|---|
-| `zsh/.zshrc` | `~/.zshrc` |
+| `zsh/.zshrc`, `zsh/.zprofile` | `~/.zshrc`, `~/.zprofile` |
 | `git/.gitconfig`, `git/.gitignore_global` | `~/.gitconfig`, `~/.gitignore_global` |
 | `ghostty/config` | `~/.config/ghostty/config` |
 | `ssh/config` | `~/.ssh/config` |

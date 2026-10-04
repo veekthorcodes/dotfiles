@@ -90,6 +90,7 @@ link() {
 }
 mkdir -p "$HOME/.ssh" && chmod 700 "$HOME/.ssh"
 link zsh/.zshrc "$HOME/.zshrc"
+link zsh/.zprofile "$HOME/.zprofile"
 link git/.gitconfig "$HOME/.gitconfig"
 link git/.gitignore_global "$HOME/.gitignore_global"
 link ghostty/config "$HOME/.config/ghostty/config"
