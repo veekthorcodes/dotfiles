@@ -57,6 +57,9 @@ fi
 
 # ---------------------------------------------------------------------------
 step "Brewfile ($profile)"
+# Homebrew won't load formulas from third-party taps until they're trusted
+brew tap hashicorp/tap >/dev/null 2>&1
+brew trust hashicorp/tap >/dev/null 2>&1 && ok "hashicorp/tap trusted"
 if brew bundle check --file="$DOTFILES/Brewfile" >/dev/null 2>&1; then
 	ok "all packages and apps installed"
 else
