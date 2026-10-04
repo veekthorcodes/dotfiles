@@ -45,7 +45,7 @@ Because these are symlinks, editing `~/.zshrc` edits the repo; commit and push t
 
 - This repo is public. Never commit secrets: `.env` files, tokens, private keys. A pre-commit hook in `.githooks/` blocks the common ones.
 - Never install `node`, `maven`, `gradle` or `openjdk` with Homebrew. fnm and SDKMAN own those.
-- Machine-specific settings go in `~/.gitconfig.local` (not committed).
+- Machine-specific settings go in local files that are never committed: `~/.zshrc.local` (env vars, aliases, tokens), `~/.ssh/config.local` (extra hosts and keys) and `~/.gitconfig.local` (work email).
 
 ## Gotchas
 

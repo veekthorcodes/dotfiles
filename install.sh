@@ -97,6 +97,8 @@ link ssh/config "$HOME/.ssh/config"
 link claude/settings.json "$HOME/.claude/settings.json"
 link claude/statusline.sh "$HOME/.claude/statusline.sh"
 
+[ -d "$BACKUP_DIR" ] && todo "Old configs were moved to $BACKUP_DIR. Copy machine-only lines from them: env vars and aliases into ~/.zshrc.local, Host blocks into ~/.ssh/config.local, git settings into ~/.gitconfig.local"
+
 if [ "$profile" = work ] && ! git config --file "$HOME/.gitconfig.local" user.email >/dev/null; then
 	read -r -p "  Work git email (blank to keep the personal one): " work_email
 	[ -n "$work_email" ] && git config --file "$HOME/.gitconfig.local" user.email "$work_email" && ok "work email saved to ~/.gitconfig.local"

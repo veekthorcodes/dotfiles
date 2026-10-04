@@ -1,3 +1,11 @@
+# Added by OrbStack: 'orb' SSH host for Linux machines
+# This only works if it's at the top of ssh_config (before any Host blocks).
+# This won't be added again if you remove it.
+Include ~/.orbstack/ssh/config
+
+# Machine-only hosts and keys (e.g. work servers): never committed
+Include ~/.ssh/config.local
+
 Host *
   AddKeysToAgent yes
   UseKeychain yes

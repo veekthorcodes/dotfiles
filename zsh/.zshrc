@@ -16,6 +16,9 @@ alias ls="eza --icons"
 alias cat="bat"
 alias vim="nvim"
 
+# Machine-only settings (work env vars, tokens): never committed
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
+
 # Must be last
 source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
