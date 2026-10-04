@@ -7,6 +7,11 @@ set -euo pipefail
 
 REPO="https://github.com/veekthorcodes/dotfiles.git"
 DIR="$HOME/dotfiles"
+BREW=/opt/homebrew/bin/brew
+
+if [ "$(uname -m)" != arm64 ]; then
+	echo "These dotfiles are for Apple Silicon Macs only." && exit 1
+fi
 
 # 1. Xcode Command Line Tools (git, make, a C compiler)
 if ! xcode-select -p >/dev/null 2>&1; then
@@ -16,14 +21,9 @@ if ! xcode-select -p >/dev/null 2>&1; then
 fi
 
 # 2. Homebrew
-if [ -x /opt/homebrew/bin/brew ]; then
-	BREW=/opt/homebrew/bin/brew
-elif [ -x /usr/local/bin/brew ]; then
-	BREW=/usr/local/bin/brew
-else
+if [ ! -x "$BREW" ]; then
 	echo "==> Installing Homebrew"
 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-	BREW=$([ -x /opt/homebrew/bin/brew ] && echo /opt/homebrew/bin/brew || echo /usr/local/bin/brew)
 fi
 eval "$("$BREW" shellenv)"
 

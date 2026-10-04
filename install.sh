@@ -6,7 +6,10 @@ set -o pipefail
 DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 GITHUB_USER="veekthorcodes"
 NODE_MAJOR=24
-SDKMAN_CANDIDATES="java:25.0.2-open maven:3.10.0 gradle:9.8.0"
+# Temurin builds of OpenJDK (the -open builds stop getting fixes at the next release).
+# Pin only versions SDKMAN can download: java 21.0.12+1.1-tem and gradle 9.8.0 are listed but 404 (2026-10-04).
+SDKMAN_CANDIDATES="java:21.0.7-tem java:25.0.4-tem maven:3.10.0 gradle:9.5.1"
+JAVA_DEFAULT="25.0.4-tem"
 PROFILE_FILE="$HOME/.dotfiles-profile"
 BACKUP_DIR="$HOME/.dotfiles-backup/$(date +%Y%m%d-%H%M%S)"
 TODO=()
@@ -33,13 +36,11 @@ printf '%sProfile: %s%s\n' "$bold" "$profile" "$reset"
 
 # ---------------------------------------------------------------------------
 step "Homebrew"
-if [ -x /opt/homebrew/bin/brew ]; then
-	BREW=/opt/homebrew/bin/brew
-elif [ -x /usr/local/bin/brew ]; then
-	BREW=/usr/local/bin/brew
-else
-	echo "Homebrew is not installed. Run bootstrap.sh first." && exit 1
+if [ "$(uname -m)" != arm64 ]; then
+	echo "These dotfiles are for Apple Silicon Macs only." && exit 1
 fi
+BREW=/opt/homebrew/bin/brew
+[ -x "$BREW" ] || { echo "Homebrew is not installed. Run bootstrap.sh first." && exit 1; }
 eval "$("$BREW" shellenv)"
 if [ -f /etc/paths.d/homebrew ] || grep -qs 'brew shellenv' "$HOME/.zprofile"; then
 	ok "brew is on PATH for new shells"
@@ -48,12 +49,10 @@ else
 	ok "added brew shellenv to ~/.zprofile"
 fi
 
-if [ "$(uname -m)" = arm64 ]; then
-	if /usr/bin/pgrep -q oahd || arch -x86_64 /usr/bin/true 2>/dev/null; then
-		ok "Rosetta"
-	else
-		sudo softwareupdate --install-rosetta --agree-to-license && ok "Rosetta installed"
-	fi
+if /usr/bin/pgrep -q oahd || arch -x86_64 /usr/bin/true 2>/dev/null; then
+	ok "Rosetta"
+else
+	sudo softwareupdate --install-rosetta --agree-to-license && ok "Rosetta installed"
 fi
 
 # ---------------------------------------------------------------------------
@@ -120,6 +119,11 @@ for entry in $SDKMAN_CANDIDATES; do
 			ok "$cand $ver installed" || warn "could not install $cand $ver; pick another with: sdk list $cand"
 	fi
 done
+if [ "$(readlink "$HOME/.sdkman/candidates/java/current")" = "$HOME/.sdkman/candidates/java/$JAVA_DEFAULT" ]; then
+	ok "default java $JAVA_DEFAULT"
+else
+	"$BREW_BASH" -c "source \"\$HOME/.sdkman/bin/sdkman-init.sh\" && sdk default java $JAVA_DEFAULT" >/dev/null && ok "default java $JAVA_DEFAULT"
+fi
 
 # ---------------------------------------------------------------------------
 step "Node (fnm)"
