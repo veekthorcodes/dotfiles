@@ -38,7 +38,7 @@ Because these are symlinks, editing `~/.zshrc` edits the repo; commit and push t
 | | Personal (default) | Work |
 |---|---|---|
 | Spotify, Telegram | yes | removed |
-| Forge CLI | no | yes |
+| Forge CLI, Ansible | no | yes |
 | Git email | personal | asks for a work email, saved to `~/.gitconfig.local` |
 
 ## Rules

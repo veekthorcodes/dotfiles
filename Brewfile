@@ -23,7 +23,6 @@ brew "starship"
 brew "bash"                      # Bash 4+ for the SDKMAN installer
 brew "pnpm"
 brew "python"                    # pip installs are blocked; CLI tools come as formulas
-brew "ansible"
 brew "fnm"                       # Node version manager (instead of nvm)
 brew "azure-cli"
 brew "hashicorp/tap/terraform"   # not in homebrew-core since the license change
@@ -38,6 +37,9 @@ cask "google-chrome"
 cask "orbstack"
 cask "claude-code"
 cask "font-jetbrains-mono-nerd-font"
+
+# Work only
+brew "ansible" if work
 
 # Personal only
 cask "spotify" unless work
