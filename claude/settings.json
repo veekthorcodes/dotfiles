@@ -1,7 +1,8 @@
 {
-  "theme": "auto",
+  "model": "opus",
   "statusLine": {
     "type": "command",
     "command": "bash ~/.claude/statusline.sh"
-  }
+  },
+  "theme": "auto"
 }
