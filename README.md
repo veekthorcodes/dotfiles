@@ -39,13 +39,14 @@ Because these are symlinks, editing `~/.zshrc` edits the repo; commit and push t
 |---|---|---|
 | Spotify, Telegram | yes | removed |
 | Forge CLI, Ansible | no | yes |
-| Git email | personal | asks for a work email, saved to `~/.gitconfig.local` |
+| Git email | personal | asks for a work email, saved to `~/.gitconfig.work` and used only under `~/dev/onpoint` |
 
 ## Rules
 
 - This repo is public. Never commit secrets: `.env` files, tokens, private keys. A pre-commit hook in `.githooks/` blocks the common ones.
 - Never install `node`, `maven`, `gradle` or `openjdk` with Homebrew. fnm and SDKMAN own those.
-- Machine-specific settings go in local files that are never committed: `~/.zshrc.local` (env vars, aliases, tokens), `~/.ssh/config.local` (extra hosts and keys) and `~/.gitconfig.local` (work email).
+- Projects live in `~/dev/codes` (personal, personal git email) and `~/dev/onpoint` (work, work git email).
+- Machine-specific settings go in local files that are never committed: `~/.zshrc.local` (env vars, aliases, tokens), `~/.ssh/config.local` (extra hosts and keys) `~/.gitconfig.local` (git settings) and `~/.gitconfig.work` (work email).
 
 ## Gotchas
 

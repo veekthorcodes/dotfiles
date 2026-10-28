@@ -6,3 +6,6 @@
 # Machine-specific overrides (e.g. a work email). Not in the repo.
 [include]
 	path = ~/.gitconfig.local
+# Repos under ~/dev/onpoint commit with the work email. Not in the repo.
+[includeIf "gitdir:~/dev/onpoint/"]
+	path = ~/.gitconfig.work
